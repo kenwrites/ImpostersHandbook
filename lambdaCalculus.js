@@ -30,8 +30,8 @@
  * Condition Evaluation:  lambda x . lambda y . lambda z . x y z
 */
 
-True = (x => y => x);
-False = (x => y => y);
+// True = (x => y => x);
+// False = (x => y => y);
 
 // trueFirstApply = True(true);
 // trueSecondApply = trueFirstApply(false);
@@ -39,8 +39,30 @@ False = (x => y => y);
 // trueFirstApply = True(false);
 // trueSecondApply = trueFirstApply(true);
 
-If = (x => y => z => x(y)(z));
-shouldReturnTrue = If(True)("TRUE")("oops");
-shouldReturnFalse = If(False)("oops")("FALSE");
+// If = (x => y => z => x(y)(z));
+// shouldReturnTrue = If(True)("TRUE")("oops");
+// shouldReturnFalse = If(False)("oops")("FALSE");
+
+/** Numbers 
+ * 0: lambda f . lambda x . x
+ * 1: lambda f . lambda x . f (x)
+ * 2: lambda f . lambda x . f (f(x))
+ * 3: lambda f . lambda x . f (f(f(x)))
+*/
+
+// pass 'calculate' a function, and it will determine how many times the function was invoked
+// pass 'calculate' a Church number, and it will translate to plain English numbers
+
+calculate = f => f(x => x + 1)(0);
+
+let zero = f => x => x;
+let one = f => x => f(x);
+let two = f => x => f(f(x));
+let three = f => x => (f(f(f(x))));
+
+answer0 = calculate(zero);
+answer1 = calculate(one);
+answer2 = calculate(two);
+answer3 = calculate(three);
 
 console.log();
